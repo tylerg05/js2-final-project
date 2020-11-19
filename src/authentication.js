@@ -1,3 +1,4 @@
+/*
 import firebase from 'firebase';
 import firebaseConfig from './firebase.js';
 
@@ -46,3 +47,4 @@ firebase.auth().onAuthStateChanged(user => {
         console.log("You just logged out");
     }
 });
+*/
