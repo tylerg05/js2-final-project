@@ -1,17 +1,20 @@
 <template>
-  <!--boostrap vue navbar-->
   <div id="app">
-    <router-view></router-view>
+    <!--boostrap vue navbar-->
+    <Navbar />
+    <router-view/>
   </div>
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
+import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',
   components: {
     //HelloWorld
+    Navbar
   }
 }
 </script>
@@ -23,6 +26,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+#nav {
+  /*padding-top: 50px;
+  padding-bottom: 50px;*/
+  font-size: larger;
+}
+#errorList {
+  color: red;
+  list-style-type: none;
+}
+input[type="button"] {
+  margin: 10px;
 }
 </style>

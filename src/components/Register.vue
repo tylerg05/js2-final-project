@@ -1,13 +1,22 @@
-<!--Log In Template (mostly) from blog.logrocket.com-->
+<!--Register Template (mostly) from blog.logrocket.com-->
 <template>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Login</div>
+          <div class="card-header">Register</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
+            <div v-if="success" class="alert alert-success">Registered successfully.</div>
             <form action="#" @submit.prevent="submit">
+              <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+                <div class="col-md-6">
+                  <input id="name" type="name" class="form-control" name="name" value required autofocus v-model="form.name"/>
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
@@ -26,7 +35,7 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary">Register</button>
                 </div>
               </div>
             </form>
@@ -37,51 +46,35 @@
   </div>
 </template>
 
+
 <script>
-//import firebase from "firebase";
-import firebaseApp from "../firebase.js";
+import firebase from "firebase";
 
 export default {
-  name: 'Login',
-  props: {
-    form: {
-      email: "",
-      password: ""
-    },
-    error: null
+  data() {
+    return {
+      form: {
+        name: "",
+        email: "",
+        password: ""
+      },
+      error: null,
+      success: false,
+    };
   },
   methods: {
-    // Log In Code
-    logIn() {
-        firebaseApp.auth().signInWithEmailAndPassword(this.form.email, this.form.password).then(() => {
-          alert("LOG IN SUCCESS");
-          this.$router.replace({ name: "home" });
-        }).catch(error => {
-          console.log(error);
-          this.error = error.message;
+    submit() {
+      firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password)
+        .then(data => {
+          data.user.updateProfile({
+              displayName: this.form.name
+            })
+            .then(() => {this.success = true});
+        })
+        .catch(err => {
+          this.error = err.message;
         });
-        //location.reload();
-    },
-    // Log Out Code
-    /*
-    logOut() {
-        firebase.auth().signOut().then(() => {
-          alert("You have logged out");
-        }, error => {
-          console.log(error)
-        });
-        //location.reload();
-    },
-    */
-    checkForLogin() {
-      var user = firebaseApp.auth().currentUser;
-      if (user) {
-          alert("You are currently logged in as " + user.email + ".");
-      }
-      else {
-          alert("You are currently not logged in.");
-      }
     }
   }
-}
+};
 </script>
