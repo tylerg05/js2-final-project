@@ -1,4 +1,3 @@
-//store.js code from blog.logrocket.com
 import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);

@@ -1,4 +1,3 @@
-<!--Log In Template (mostly) from blog.logrocket.com-->
 <template>
   <div class="container">
     <div class="row justify-content-center">
@@ -12,7 +11,16 @@
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                 <div class="col-md-6">
-                  <input id="email" type="email" class="form-control" name="email" value required autofocus v-model="form.email"/>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    value
+                    required
+                    autofocus
+                    v-model="form.email"
+                  />
                 </div>
               </div>
 
@@ -20,7 +28,14 @@
                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                 <div class="col-md-6">
-                  <input id="password" type="password" class="form-control" name="password" required v-model="form.password"/>
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    required
+                    v-model="form.password"
+                  />
                 </div>
               </div>
 
@@ -38,30 +53,31 @@
 </template>
 
 <script>
-//import firebase from "firebase";
-import firebaseApp from "../firebase.js";
+import firebase from "firebase";
 
 export default {
-  name: 'Login',
-  props: {
-    form: {
-      email: "",
-      password: ""
-    },
-    error: null
+  data() {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      error: null
+    };
   },
   methods: {
-    // Log In Code
-    logIn() {
-        firebaseApp.auth().signInWithEmailAndPassword(this.form.email, this.form.password).then(() => {
-          alert("LOG IN SUCCESS");
-          this.$router.replace({ name: "home" });
-        }).catch(error => {
-          console.log(error);
-          this.error = error.message;
+    submit() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.form.email, this.form.password)
+        .then(data => {
+          this.$router.replace({ name: "Dashboard" });
+          console.log(data);
+        })
+        .catch(err => {
+          this.error = err.message;
         });
-        //location.reload();
-    },
+    }
   }
-}
+};
 </script>

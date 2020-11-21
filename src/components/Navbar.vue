@@ -1,61 +1,45 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-    <div class="container">
-      <router-link to="/" class="navbar-brand">Vue Firebase Auth</router-link>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
-        <ul class="navbar-nav ml-auto">
-          <template v-if="user.loggedIn">
-            <div class="nav-item">{{user.data.displayName}}</div>
-            <li class="nav-item">
-              <a class="nav-link" @click.prevent="signOut">Sign out</a>
-            </li>
-          </template>
-          <template v-else>
-            <li class="nav-item">
-              <router-link to="login" class="nav-link">Login</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="register" class="nav-link">Register</router-link>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<div id="nav">
+  <b-navbar toggleable="xl" type="dark" variant="info">
+    <router-link to="/">
+        <b-navbar-brand>Arrangement</b-navbar-brand>
+    </router-link>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item href="#" disabled>Arrange</b-nav-item>
+        <b-nav-item href="#" disabled>Musicians</b-nav-item>
+        <b-nav-item href="#" disabled>Bands</b-nav-item>
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <!-- Login / Logout -->
+      <b-navbar-nav class="ml-auto">
+      <b-nav-item-dropdown text="Account" right>
+          <!--<b-dropdown-item href="#" disabled>Hello, {{user.data.displayName}}</b-dropdown-item>-->
+          <b-dropdown-item :to="{ name: 'register' }">Register</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'login' }">Log In</b-dropdown-item>
+          <b-dropdown-item v-if="user.loggedIn" @click.prevent="signOut">Log Out</b-dropdown-item>
+      </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 </template>
-
 <script>
-import firebaseApp from "../firebase.js";
-import { mapGetters } from "vuex";
-
+import firebase from "firebase";
 export default {
-    name: 'Navbar',
-    computed: {
-    ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
-    },
-    methods: {
-      logOut() {
-        firebaseApp.auth().signOut().then(() => {
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
           this.$router.replace({
             name: "home"
           });
         });
     }
   }
-}
+};
 </script>

@@ -51,6 +51,7 @@
 import firebase from "firebase";
 
 export default {
+  name: 'Register',
   data() {
     return {
       form: {
