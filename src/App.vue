@@ -2,6 +2,7 @@
   <div id="app">
     <!--boostrap vue navbar-->
     <Navbar />
+    <!--body-->
     <router-view/>
   </div>
 </template>

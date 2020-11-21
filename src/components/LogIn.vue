@@ -62,26 +62,6 @@ export default {
         });
         //location.reload();
     },
-    // Log Out Code
-    /*
-    logOut() {
-        firebase.auth().signOut().then(() => {
-          alert("You have logged out");
-        }, error => {
-          console.log(error)
-        });
-        //location.reload();
-    },
-    */
-    checkForLogin() {
-      var user = firebaseApp.auth().currentUser;
-      if (user) {
-          alert("You are currently logged in as " + user.email + ".");
-      }
-      else {
-          alert("You are currently not logged in.");
-      }
-    }
   }
 }
 </script>
