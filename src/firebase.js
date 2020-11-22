@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+// import store from "./store";
 
 var firebaseConfig = {
     apiKey: "AIzaSyBFS-XJmuGAOxpY09rmE-qvVZJ4OoIWpXk",
@@ -12,5 +13,18 @@ var firebaseConfig = {
   };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig)
-export default firebaseApp;
 export const db = firebaseApp.firestore();
+export const auth = firebase.auth();
+
+export const musiciansCollection = db.collection('musicians');
+export const bandsCollection = db.collection('preselectedBands');
+export const reservationsCollection = db.collection('reservations');
+
+export default {
+  db,
+  auth,
+  firebaseApp,
+  musiciansCollection,
+  bandsCollection,
+  reservationsCollection
+};
