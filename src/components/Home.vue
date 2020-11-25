@@ -1,13 +1,15 @@
 <template>
-  <div class="hello">
+  <div>
     Hello! <br>
+    <carousel></carousel>
   </div>
 </template>
 
 <script>
-//import firebase from "../firebase.js";
+import Carousel from './HomeCarousel.vue'
 
 export default {
+  components: { Carousel },
   name: 'HelloWorld',
   metaInfo() {
       return {
@@ -20,14 +22,8 @@ export default {
       }
   },
   data() {
-    return {
-      dismissSecs: 10,
-      dismissCountDown: 0,
-      showDismissibleAlert: true
-    }
   },
   props: {
-    //msg: String
   },
   methods: {
   }
@@ -36,18 +32,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
 </style>
