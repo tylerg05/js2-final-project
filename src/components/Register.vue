@@ -6,23 +6,6 @@
           <div class="card-header">Register</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
-            <form action="#" @submit.prevent="submit">
-              <!-- <div class="form-group row"> -->
-                <!-- <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="name"
-                    type="name"
-                    class="form-control"
-                    name="name"
-                    value
-                    required
-                    autofocus
-                    v-model="form.name"
-                  />
-                </div>
-              </div> -->
 
               <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
@@ -36,7 +19,7 @@
                     value
                     required
                     autofocus
-                    v-model="form.email"
+                    v-model="email"
                   />
                 </div>
               </div>
@@ -51,17 +34,16 @@
                     class="form-control"
                     name="password"
                     required
-                    v-model="form.password"
+                    v-model="password"
                   />
                 </div>
               </div>
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Register</button>
+                  <button @click="emailSignUp" class="btn btn-primary">Register</button>
                 </div>
               </div>
-            </form>
           </div>
         </div>
       </div>
@@ -71,13 +53,22 @@
 
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase";
 
 export default {
+  metaInfo() {
+  return {
+      title: "Register for Arrangement",
+      meta: [
+          { name: 'description', content:  'Register for an Arrangement account.'},
+          { property: 'og:title', content: "Register for Arrangement"},
+          { property: 'og:site_name', content: 'Arrangement'}
+      ]
+    }
+  },
   data() {
     return {
       form: {
-        // name: "",
         email: "",
         password: ""
       },
@@ -85,13 +76,24 @@ export default {
     };
   },
   methods: {
-    signup() {
-        this.$store.dispatch('signup', {
-            email: this.form.email,
-            password: this.form.password,
-            //name: this.form.name
-        });
-    }
+    emailSignUp() {
+      console.log(this.email, this.password);
+      if (this.email && this.password) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then((params) => {
+            console.log("SUCCESS", params);
+          })
+          .catch((error) => {
+            console.log("SIGN UP ERROR:", error.message);
+            // The account could aleady exist,
+            // or the password may not be strong enough
+          });
+      } else {
+        console.log("Inavalid user input - Make sure you add validation code!");
+      }
+    },
   }
 };
 </script>

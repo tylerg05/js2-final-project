@@ -9,6 +9,16 @@
 
 export default {
   name: 'HelloWorld',
+  metaInfo() {
+      return {
+          title: "Arrangement: A Band Booking Service",
+          meta: [
+              { name: 'description', content:  'Welcome to the home page of Arrangement, a band booking service.'},
+              { property: 'og:title', content: "Arrangement - Home"},
+              { property: 'og:site_name', content: 'Arrangement'}
+          ]
+      }
+  },
   data() {
     return {
       dismissSecs: 10,
